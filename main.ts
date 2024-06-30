@@ -63,13 +63,18 @@ let doDiscover = false
 function discover() {
     while ( doDiscover ) {
         let dist
+        music.tonePlayable(Note.C, 100)
         do {
             dist = sonar.ping(TrigPin, EchoPin, PingUnit.Centimeters)
             console.logValue("dist", dist)
             if (dist == 0)
                 dist = MaxDist
-            led.plotBarGraph(dist, MaxDist)
+            led.plotBarGraph(MaxDist - dist, MaxDist)
             if (dist < MinDist) {
+                music.play(
+                    music.builtInPlayableMelody(Melodies.Funk),
+                    music.PlaybackMode.InBackground
+                )
                 glideBackward()
                 basic.pause(1000)
                 turnLeft()
@@ -194,9 +199,15 @@ pins.digitalWritePin(DigitalPin.P14, 1)
 basic.showString("R")
 led.setBrightness(32)
 
+led.enable(false)
 bluetooth.startUartService()
 
 console.log("Started")
+music.setBuiltInSpeakerEnabled(false)
+music.play(
+    music.builtInPlayableMelody(Melodies.Ode),
+    music.PlaybackMode.InBackground
+)
 
 
 bluetooth.onBluetoothConnected(function(){
@@ -240,7 +251,23 @@ bluetooth.onUartDataReceived("#", function () {
 })
 
 
-
 basic.forever(function () {
-	
+    pins.digitalWritePin(DigitalPin.P9, 0)
+    pins.digitalWritePin(DigitalPin.P10, 0)
+    basic.pause(1000)
+    pins.digitalWritePin(DigitalPin.P9, 1)
+    pins.digitalWritePin(DigitalPin.P10, 1)
+    basic.pause(10000)
+    pins.digitalWritePin(DigitalPin.P9, 0)
+    pins.digitalWritePin(DigitalPin.P10, 0)
+    basic.pause(500)
+    pins.digitalWritePin(DigitalPin.P9, 1)
+    pins.digitalWritePin(DigitalPin.P10, 1)
+    basic.pause(10000)
+    pins.digitalWritePin(DigitalPin.P9, 0)
+    pins.digitalWritePin(DigitalPin.P10, 1)
+    basic.pause(500)
+    pins.digitalWritePin(DigitalPin.P9, 1)
+    pins.digitalWritePin(DigitalPin.P10, 0)
+    basic.pause(500)
 })
