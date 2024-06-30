@@ -252,17 +252,17 @@ bluetooth.onUartDataReceived("#", function () {
 
 
 basic.forever(function () {
-    pins.digitalWritePin(DigitalPin.P9, 0)
-    pins.digitalWritePin(DigitalPin.P10, 0)
+    pins.digitalWritePin(DigitalPin.P9, 1)
+    pins.digitalWritePin(DigitalPin.P10, 1)
     basic.pause(1000)
-    pins.digitalWritePin(DigitalPin.P9, 1)
-    pins.digitalWritePin(DigitalPin.P10, 1)
-    basic.pause(10000)
     pins.digitalWritePin(DigitalPin.P9, 0)
     pins.digitalWritePin(DigitalPin.P10, 0)
-    basic.pause(500)
+    basic.pause(10000)
     pins.digitalWritePin(DigitalPin.P9, 1)
     pins.digitalWritePin(DigitalPin.P10, 1)
+    basic.pause(500)
+    pins.digitalWritePin(DigitalPin.P9, 0)
+    pins.digitalWritePin(DigitalPin.P10, 0)
     basic.pause(10000)
     pins.digitalWritePin(DigitalPin.P9, 0)
     pins.digitalWritePin(DigitalPin.P10, 1)
